@@ -1,0 +1,21 @@
+version: '2'
+services:
+  ui:
+    build: ./ui
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+  api:
+    build: ./api
+    environment:
+      - MONGODB_URL=mongodb://localhost:27017/test
+      - PORT=8080
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
